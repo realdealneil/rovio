@@ -499,13 +499,28 @@ class RovioNode{
     // Get image from msg
     cv_bridge::CvImagePtr cv_ptr;
     try {
-      cv_ptr = cv_bridge::toCvCopy(img, sensor_msgs::image_encodings::TYPE_8UC1);
+      //! Support 3 channel images as well...just convert to grayscale if they have more than 2 channels
+      cv_ptr = cv_bridge::toCvCopy(img); //, sensor_msgs::image_encodings::TYPE_8UC1);
     } catch (cv_bridge::Exception& e) {
       ROS_ERROR("cv_bridge exception: %s", e.what());
       return;
     }
     cv::Mat cv_img;
-    cv_ptr->image.copyTo(cv_img);
+    
+    //! Check how many channels there are and do a grayscale conversion if necessary:
+    if (cv_ptr->image.channels() == 1)
+    {
+      cv_ptr->image.copyTo(cv_img);
+    }
+    else if (cv_ptr->image.channels() == 3)
+    {
+      cv::cvtColor(cv_ptr->image, cv_img, cv::COLOR_RGB2GRAY);
+    }
+    else
+    {
+      ROS_ERROR_THROTTLE(1.0, "RovioNode: Color channel error: image has %d channels", cv_ptr->image.channels());
+      return;
+    }
     if(init_state_.isInitialized() && !cv_img.empty()){
       double msgTime = img->header.stamp.toSec();
       if(msgTime != imgUpdateMeas_.template get<mtImgMeas::_aux>().imgTime_){

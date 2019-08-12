@@ -105,17 +105,31 @@ class FeatureTrackerNode{
    *     in the MultilevelPatchSet. MultilevelPatchFeature%s which are stated invalid are replaced by new features.
    *
    *  @param img_msg - Image message (ros)
-   */
+   */  
   void imgCallback(const sensor_msgs::ImageConstPtr & img_msg){
     // Get image from msg
     cv_bridge::CvImagePtr cv_ptr;
     try {
-      cv_ptr = cv_bridge::toCvCopy(img_msg, sensor_msgs::image_encodings::TYPE_8UC1);
+      cv_ptr = cv_bridge::toCvCopy(img_msg); //, sensor_msgs::image_encodings::TYPE_8UC1);
     } catch (cv_bridge::Exception& e) {
       ROS_ERROR("cv_bridge exception: %s", e.what());
       return;
     }
-    cv_ptr->image.copyTo(img_);
+    
+    //! Check how many channels there are and do a grayscale conversion if necessary:
+    if (cv_ptr->image.channels() == 1)
+    {
+      cv_ptr->image.copyTo(img_);
+    }
+    else if (cv_ptr->image.channels() == 3)
+    {
+      cv::cvtColor(cv_ptr->image, img_, cv::COLOR_RGB2GRAY);
+    }
+    else
+    {
+      ROS_ERROR_THROTTLE(1.0, "FeatureTracker: Color channel error: image has %d channels", cv_ptr->image.channels());
+      return;
+    }
 
     // Timing
     static double last_time = 0.0;
