@@ -1,11 +1,11 @@
 ###### Camera Calibration File For Cam 0 of SubT X4 (ignition sim) ######
-image_width: 640
-image_height: 480
+image_width: 320
+image_height: 240
 camera_name: cam0
 camera_matrix:
   rows: 3
   cols: 3
-  data: [554.3, 0.0, 320.5, 0.0, 554.3, 240.5, 0.0, 0.0, 1.0]
+  data: [277.1, 0.0, 160.5, 0.0, 277.1, 120.5, 0.0, 0.0, 1.0]
 distortion_model: plumb_bob
 distortion_coefficients:
   rows: 1

@@ -9,13 +9,13 @@ Common
 Camera0
 {
     CalibrationFile ;												Camera-Calibration file for intrinsics
-    qCM_x  0.0;									X-entry of IMU to Camera quaterion (Hamilton)
-    qCM_y  0.0;										Y-entry of IMU to Camera quaterion (Hamilton)
-    qCM_z  0.0;										Z-entry of IMU to Camera quaterion (Hamilton)
-    qCM_w  1.0;											W-entry of IMU to Camera quaterion (Hamilton)
-    MrMC_x 0.0; 0.430;											X-entry of IMU to Camera vector (expressed in IMU CF) [m]
+    qCM_x  0.5;									X-entry of IMU to Camera quaterion (Hamilton)
+    qCM_y  -0.5;										Y-entry of IMU to Camera quaterion (Hamilton)
+    qCM_z  0.5;										Z-entry of IMU to Camera quaterion (Hamilton)
+    qCM_w  0.5;											W-entry of IMU to Camera quaterion (Hamilton)
+    MrMC_x 0.1; 0.430;											X-entry of IMU to Camera vector (expressed in IMU CF) [m]
     MrMC_y 0.0;										Y-entry of IMU to Camera vector (expressed in IMU CF) [m]
-    MrMC_z 0.0; 0.26;											Z-entry of IMU to Camera vector (expressed in IMU CF) [m]
+    MrMC_z -0.08; 0.26;											Z-entry of IMU to Camera vector (expressed in IMU CF) [m]
 }
 ;   # The actual translation from X1_1/base_link to X1_1/base_link/camera_front is as follows (from tf_echo):
 ;   #- Translation: [0.430, 0.000, 0.260]
@@ -70,7 +70,7 @@ ImgUpdate
     updateVecNormTermination 1e-4;
     maxNumIteration 20;
     doPatchWarping true;										Should the patches be warped
-    doFrameVisualisation true;									Should the frames be visualized
+    doFrameVisualisation false;									Should the frames be visualized
     visualizePatches false;										Should the patches be visualized
     useDirectMethod true;										Should the EKF-innovation be based on direct intensity error (o.w. reprojection error)
     startLevel 2;												Highest patch level which is being employed (must be smaller than the hardcoded template parameter)
