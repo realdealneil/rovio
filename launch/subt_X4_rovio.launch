@@ -7,8 +7,8 @@
     <param name="filter_config" value="$(find rovio)/cfg/subt_X4_rovio.info"/>
     <param name="camera0_config" value="$(find rovio)/cfg/subt_X4_cam0.yaml"/>
     
-    <remap from="cam0/image_raw" to="D1/front/image_raw" />
-    <remap from="imu0" to="D1/imu/data" />
+    <remap from="cam0/image_raw" to="front/image_raw" />
+    <remap from="imu0" to="imu/data" />
   </node>
   
   <group if="$(arg use_rviz)">
