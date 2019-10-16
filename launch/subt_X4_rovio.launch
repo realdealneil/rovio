@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <launch>
   <arg name="use_rviz" default="true"/>
-  <arg name="publish_path" default="true" />
+  <arg name="publish_path" default="false" />
    
   <node pkg="rovio" type="rovio_node" name="rovio" output="screen">
     <param name="filter_config" value="$(find rovio)/cfg/subt_X4_rovio.info"/>
     <param name="camera0_config" value="$(find rovio)/cfg/subt_X4_cam0.yaml"/>
+    <param name="world_frame" value="/map" />
+    <param name="imu_frame" value="rovio" />
     
     <remap from="cam0/image_raw" to="front/image_raw" />
     <remap from="imu0" to="imu/data" />
@@ -18,8 +20,8 @@
   <!-- Use hector_trajectory_server to publish the path -->
   <group if="$(arg publish_path)">
     <include file="$(find hector_trajectory_server)/launch/hector_traj_server.launch">
-      <arg name="target_frame_name" default="world" />
-      <arg name="source_frame_name" default="imu" />
+      <arg name="trajectory_target_frame_name" default="/map" />
+      <arg name="trajectory_source_frame_name" default="rovio" />
     </include>
   </group>
   
