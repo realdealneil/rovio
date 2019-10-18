@@ -15,10 +15,10 @@ Camera0
     qCM_w  0.5;											W-entry of IMU to Camera quaterion (Hamilton)
     MrMC_x 0.1; 0.430;											X-entry of IMU to Camera vector (expressed in IMU CF) [m]
     MrMC_y 0.0;										Y-entry of IMU to Camera vector (expressed in IMU CF) [m]
-    MrMC_z -0.08; 0.26;											Z-entry of IMU to Camera vector (expressed in IMU CF) [m]
+    MrMC_z 0.0; 0.26;											Z-entry of IMU to Camera vector (expressed in IMU CF) [m]
 }
 ;   # The actual translation from X1_1/base_link to X1_1/base_link/camera_front is as follows (from tf_echo):
-;   #- Translation: [0.430, 0.000, 0.260]
+;   #- Translation: [0.10, 0.000, 0.0]
 ;   #- Rotation: in Quaternion [0.000, 0.000, 0.000, 1.000]
 ;   #         in RPY (radian) [0.000, -0.000, 0.000]
 ;   #         in RPY (degree) [0.000, -0.000, 0.000]
