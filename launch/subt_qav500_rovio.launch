@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <launch>
-  <!--<arg name="tf_world_frame" default="map" />-->
+  <arg name="tf_world_frame" default="map" />
   <!--<arg name="tf_rovio_imu_frame" default="rovio_imu" />	-->
 	
   <arg name="use_rviz" default="false"/>
@@ -9,7 +9,7 @@
   <node pkg="rovio" type="rovio_node" name="rovio" output="screen" required="true">
     <param name="filter_config" value="$(find rovio)/cfg/subt_qav500_vio.info"/>
     <param name="camera0_config" value="$(find rovio)/cfg/subt_qav500_front_rgbd.yaml"/>
-    <!--<param name="world_frame" value="$(arg tf_world_frame)" />-->
+    <param name="world_frame" value="$(arg tf_world_frame)" />
     <!--<param name="imu_frame" value="$(arg tf_rovio_imu_frame)" />-->
     
     <remap from="cam0/image_raw" to="front/image_raw" />
